@@ -70,4 +70,11 @@ io.on('connection', function (socket) {
         // 告诉所有人userlist发生变化
         io.emit("userList", users)
     })
+
+    // 监听聊天的消息
+    socket.on("sendMessage", data => {
+        console.log(data);
+        // 广播给所有用户
+        io.emit("receiveMessage", data)
+    })
 });

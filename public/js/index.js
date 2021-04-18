@@ -5,6 +5,10 @@
 // 链接socket io服务
 var socket = io('http://localhost:3000')
 
+// 定义全局变量，保存当前用户信息
+var username = null
+var avatar = null
+
 /**
  * 登录功能
  */
@@ -48,6 +52,9 @@ socket.on("loginSuccess", data => {
     // 设置个人信息
     $("#avatar_url").attr("src", data.avatar)
     $(".user-list .username").text(data.username)
+
+    username = data.username
+    avatar = data.avatar
 })
 
 // 监听新用户进入聊天室，广播事件
@@ -89,4 +96,58 @@ socket.on("delUser", data => {
           </p>
         </div>
     `)
+})
+
+// 聊天功能
+$(".btn-send").on("click", () => {
+    // 获取要发送的消息
+    var content = $("#content").html()
+    $("#content").html("")
+    if (!content) {
+        return alert("请输入内容")
+    }
+    // 如果输入了内容，给服务器发送消息
+    socket.emit("sendMessage", {
+        username: username,
+        avatar: avatar,
+        msg: content
+    })
+})
+
+// 监听聊天的消息
+socket.on("receiveMessage", function (data) {
+    console.log(data);
+    // 将聊天消息放到聊天框里
+    // 判断该消息是谁的
+    if (data.username === username) {
+        // 自己的消息
+        $(".box-bd").append(`
+            <div class="message-box">
+              <div class="my message">
+                <img class="avatar" src="${data.avatar}" alt="" />
+                <div class="content">
+                  <div class="bubble">
+
+                    <div class="bubble_cont">${data.msg}</div>
+                  </div>
+                </div>
+              </div>
+            </div>`)
+    } else {
+        // 别人的消息
+        $(".box-bd").append(`
+            <div class="message-box">
+              <div class="other message">
+                <img class="avatar" src="${data.avatar}" alt="" />
+                <div class="content">
+                    <div class="nickname">${data.username}</div>
+
+                    <div class="bubble">
+
+                    <div class="bubble_cont">${data.msg}</div>
+                  </div>
+                </div>
+              </div>
+            </div>`)
+    }
 })
