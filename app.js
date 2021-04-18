@@ -41,6 +41,11 @@ io.on('connection', function (socket) {
             // 触发成功事件
             socket.emit("loginSuccess", data)
             console.log("登录成功");
+
+            // 告诉所有人，有人进入聊天室
+            // 使用io.emit,表示广播事件
+            // socket.emit,表示当前个人的事件
+            io.emit("addUser", data)
         }
     })
 });

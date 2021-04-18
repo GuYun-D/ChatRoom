@@ -49,3 +49,15 @@ socket.on("loginSuccess", data => {
     $("#avatar_url").attr("src", data.avatar)
     $(".user-list .username").text(data.username)
 })
+
+// 监听新用户进入聊天室，广播事件
+socket.on("addUser", data => {
+    // 添加一条系统消息
+    $(".box-bd").append(`
+        <div class="system">
+          <p class="message_system">
+            <span class="content">${data.username}加入了群聊</span>
+          </p>
+        </div>
+    `)
+})
