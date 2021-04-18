@@ -96,6 +96,8 @@ socket.on("delUser", data => {
           </p>
         </div>
     `)
+
+    scrollIntoBottom()
 })
 
 // 聊天功能
@@ -150,4 +152,10 @@ socket.on("receiveMessage", function (data) {
               </div>
             </div>`)
     }
+    scrollIntoBottom()
 })
+
+function scrollIntoBottom() {
+    // 当前元素的底部要滚动到可视区
+    $(".box-bd").children(':last').get(0).scrollIntoView(false)
+}
