@@ -6,7 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["websocket", "jQuery", "less"],
+  "keywords": [
+    "websocket",
+    "jQuery",
+    "less"
+  ],
   "author": "GuYun",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.0.1"
+  }
 }
