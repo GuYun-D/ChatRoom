@@ -189,7 +189,6 @@ socket.on("receiveImage", function (data) {
                 <img class="avatar" src="${data.avatar}" alt="" />
                 <div class="content">
                   <div class="bubble">
-
                     <div class="bubble_cont">
                       <img src="${data.img}">
                     </div>
@@ -219,5 +218,26 @@ socket.on("receiveImage", function (data) {
   $(".box-bd img:last").on("load", function () {
     scrollIntoBottom()
   })
-  
+
+})
+
+
+$(".face").on("click", function () {
+  // 初始化jquery-emoji插件
+  $('#content').emoji({
+    button: '.face',
+    position: 'topRight',
+    showTab: true,
+    animation: 'fade',
+    icons: [
+      {
+        name: 'qq表情',
+        path: '../lib/jquery-emoji/img/qq/',
+        maxNum: 91,
+        excludeNums: [41, 45, 54],
+        file: '.gif',
+        placeholder: '#qq_{alias}#'
+      }
+    ]
+  })
 })
