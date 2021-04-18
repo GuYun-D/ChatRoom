@@ -41,5 +41,11 @@ socket.on("loginError", data => {
 
 // 监听登录成功的请求
 socket.on("loginSuccess", data => {
-    alert("登陆成功了")
+    // 隐藏登录窗口，隐藏聊天窗口
+    $(".login_box").fadeOut()
+    $(".container").fadeIn()
+
+    // 设置个人信息
+    $("#avatar_url").attr("src", data.avatar)
+    $(".user-list .username").text(data.username)
 })
