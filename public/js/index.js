@@ -61,3 +61,20 @@ socket.on("addUser", data => {
         </div>
     `)
 })
+
+// 监听用户列表的消息
+socket.on("userList", data => {
+    console.log(data);
+    // 防止用户列表重复渲染
+    $(".user-list ul").html('')
+    // 将数据动态渲染到列表中
+    data.forEach(item => {
+        $(".user-list ul").append(`
+            <li class="user">
+                <div class="avatar"><img src="${item.avatar}" /></div>
+                <div class="name">${item.username}</div>
+            </li>
+        `)
+    });
+    $("#usercount").text(data.length)
+})

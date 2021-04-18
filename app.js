@@ -46,6 +46,9 @@ io.on('connection', function (socket) {
             // 使用io.emit,表示广播事件
             // socket.emit,表示当前个人的事件
             io.emit("addUser", data)
+
+            // 告诉所有的用户，聊天室一共有多少人
+            io.emit("userList", users)
         }
     })
 });
