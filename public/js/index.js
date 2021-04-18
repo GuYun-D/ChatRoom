@@ -78,3 +78,15 @@ socket.on("userList", data => {
     });
     $("#usercount").text(data.length)
 })
+
+// 监听用户离开的消息
+socket.on("delUser", data => {
+    // 添加一条系统消息
+    $(".box-bd").append(`
+        <div class="system">
+          <p class="message_system">
+            <span class="content">${data.username}离开了群聊天室</span>
+          </p>
+        </div>
+    `)
+})

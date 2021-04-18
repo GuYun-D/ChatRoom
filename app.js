@@ -50,5 +50,24 @@ io.on('connection', function (socket) {
             // 告诉所有的用户，聊天室一共有多少人
             io.emit("userList", users)
         }
+
+        // 将登陆进来的用户名存起来，以便于后面的调用
+        socket.username = data.username
+        socket.avatar = data.avatar
+    })
+
+    // 用户断开连接，退出聊天室
+    // 时间名固定
+    socket.on("disconnect", () => {
+        // 将离开的用户的信息删除
+        var index = users.findIndex(item => item === socket.username)
+        users.splice(index, 1)
+        // 告诉所有人有人离开了
+        io.emit("delUser", {
+            username: socket.username,
+            avatar: socket.avatar
+        })
+        // 告诉所有人userlist发生变化
+        io.emit("userList", users)
     })
 });
